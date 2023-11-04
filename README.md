@@ -1,5 +1,7 @@
 # WeatherApp
 
+[![Elixir CI](https://github.com/ermanimer/weather_app/actions/workflows/elixir.yml/badge.svg?branch=main)](https://github.com/ermanimer/weather_app/actions/workflows/elixir.yml)
+
 This repository features a CLI tool that uses an HTTP client implementation for educational purposes, with tests included.
 
 # Usage
