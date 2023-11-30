@@ -21,7 +21,7 @@ mix escript.build
 Run:
 
 ```bash
-./weather_app tekirdag
+./weather_app --city tekirdag
 ```
 
 Output:
