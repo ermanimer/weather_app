@@ -7,18 +7,16 @@ defmodule WeatherApp do
 
   def main(args) do
     args
-    |> parse_city()
+    |> OptionParser.parse(strict: [city: :string])
     |> send_request()
     |> print_response()
   end
 
-  defp parse_city([city]), do: {:ok, city}
+  defp send_request({[city: city], [], []}) do
+    get("/weather", query: [city: city])
+  end
 
-  defp parse_city(_), do: {:error, :invalid_args}
-
-  defp send_request({:ok, city}), do: get("/weather", query: [city: city])
-
-  defp send_request({:error, reason}), do: {:error, reason}
+  defp send_request(_), do: {:error, :invalid_args}
 
   defp print_response({:ok, %{status: 200, body: body}}) do
     IO.puts("temperature   : #{body["temp"]}°C")
@@ -32,7 +30,7 @@ defmodule WeatherApp do
   end
 
   defp print_response({:error, :invalid_args}) do
-    IO.puts("usage: weather_app <city>")
+    IO.puts("usage: weather_app --city <city>")
   end
 
   defp print_response({:error, reason}) do
