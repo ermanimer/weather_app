@@ -6,7 +6,7 @@ defmodule WeatherAppTest do
 
   setup do
     mock(fn
-      %{method: :get, url: "https://api.api-ninjas.com/v1/weather", query: [city: "corlu"]} ->
+      %{method: :get, url: "https://api.api-ninjas.com/v1/weather", query: [city: "tekirdag"]} ->
         %Tesla.Env{
           status: 200,
           body: %{"temp" => 1, "humidity" => 2, "wind_speed" => 3, "wind_degrees" => 4}
@@ -19,9 +19,9 @@ defmodule WeatherAppTest do
 
   test "main" do
     assert "temperature   : 1°C\nhumidity      : 2%\nwind speed    : 3m/s\nwind direction: 4°\n" ==
-             capture_io(fn -> WeatherApp.main(["corlu"]) end)
+             capture_io(fn -> WeatherApp.main(["--city", "tekirdag"]) end)
 
     assert "error: http request failed with status code 400\n" ==
-             capture_io(fn -> WeatherApp.main(["unknown_city"]) end)
+             capture_io(fn -> WeatherApp.main(["--city", "unknown_city"]) end)
   end
 end
